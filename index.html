@@ -1,0 +1,631 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>观云视频云 API</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"><style>@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}.right .hljs-comment{color:#969896}.right .css .hljs-class,.right .css .hljs-id,.right .css .hljs-pseudo,.right .hljs-attribute,.right .hljs-regexp,.right .hljs-tag,.right .hljs-variable,.right .html .hljs-doctype,.right .ruby .hljs-constant,.right .xml .hljs-doctype,.right .xml .hljs-pi,.right .xml .hljs-tag .hljs-title{color:#c66}.right .hljs-built_in,.right .hljs-constant,.right .hljs-literal,.right .hljs-number,.right .hljs-params,.right .hljs-pragma,.right .hljs-preprocessor{color:#de935f}.right .css .hljs-rule .hljs-attribute,.right .ruby .hljs-class .hljs-title{color:#f0c674}.right .hljs-header,.right .hljs-inheritance,.right .hljs-name,.right .hljs-string,.right .hljs-value,.right .ruby .hljs-symbol,.right .xml .hljs-cdata{color:#b5bd68}.right .css .hljs-hexcolor,.right .hljs-title{color:#8abeb7}.right .coffeescript .hljs-title,.right .hljs-function,.right .javascript .hljs-title,.right .perl .hljs-sub,.right .python .hljs-decorator,.right .python .hljs-title,.right .ruby .hljs-function .hljs-title,.right .ruby .hljs-title .hljs-keyword{color:#81a2be}.right .hljs-keyword,.right .javascript .hljs-function{color:#b294bb}.right .hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.right .coffeescript .javascript,.right .javascript .xml,.right .tex .hljs-formula,.right .xml .css,.right .xml .hljs-cdata,.right .xml .javascript,.right .xml .vbscript{opacity:.5}body{color:black;background:white;font:400 14px / 1.42 'Roboto',Helvetica,sans-serif}header{border-bottom:1px solid #f2f2f2;margin-bottom:12px}h1,h2,h3,h4,h5{color:black;margin:12px 0}h1 .permalink,h2 .permalink,h3 .permalink,h4 .permalink,h5 .permalink{margin-left:0;opacity:0;transition:opacity .25s ease}h1:hover .permalink,h2:hover .permalink,h3:hover .permalink,h4:hover .permalink,h5:hover .permalink{opacity:1}.triple h1 .permalink,.triple h2 .permalink,.triple h3 .permalink,.triple h4 .permalink,.triple h5 .permalink{opacity:.15}.triple h1:hover .permalink,.triple h2:hover .permalink,.triple h3:hover .permalink,.triple h4:hover .permalink,.triple h5:hover .permalink{opacity:.15}h1{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:36px}h2{font:200 36px 'Raleway',Helvetica,sans-serif;font-size:30px}h3{font-size:100%;text-transform:uppercase}h5{font-size:100%;font-weight:normal}p{margin:0 0 10px}p.choices{line-height:1.6}a{color:#428bca;text-decoration:none}li p{margin:0}hr.split{border:0;height:1px;width:100%;padding-left:6px;margin:12px auto;background-image:linear-gradient(to right, rgba(0,0,0,0) 20%, rgba(0,0,0,0.2) 51.4%, rgba(255,255,255,0.2) 51.4%, rgba(255,255,255,0) 80%)}dl dt{float:left;width:130px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-left:150px}blockquote{color:rgba(0,0,0,0.5);font-size:15.5px;padding:10px 20px;margin:12px 0;border-left:5px solid #e8e8e8}blockquote p:last-child{margin-bottom:0}pre{background-color:#f5f5f5;padding:12px;border:1px solid #cfcfcf;border-radius:6px;overflow:auto}pre code{color:black;background-color:transparent;padding:0;border:none}code{color:#444;background-color:#f5f5f5;font:'Inconsolata',monospace;padding:1px 4px;border:1px solid #cfcfcf;border-radius:3px}ul,ol{padding-left:2em}table{border-collapse:collapse;border-spacing:0;margin-bottom:12px}table tr:nth-child(2n){background-color:#fafafa}table th,table td{padding:6px 12px;border:1px solid #e6e6e6}.text-muted{opacity:.5}.note,.warning{padding:.3em 1em;margin:1em 0;border-radius:2px;font-size:90%}.note h1,.warning h1,.note h2,.warning h2,.note h3,.warning h3,.note h4,.warning h4,.note h5,.warning h5,.note h6,.warning h6{font-family:200 36px 'Raleway',Helvetica,sans-serif;font-size:135%;font-weight:500}.note p,.warning p{margin:.5em 0}.note{color:black;background-color:#f0f6fb;border-left:4px solid #428bca}.note h1,.note h2,.note h3,.note h4,.note h5,.note h6{color:#428bca}.warning{color:black;background-color:#fbf1f0;border-left:4px solid #c9302c}.warning h1,.warning h2,.warning h3,.warning h4,.warning h5,.warning h6{color:#c9302c}header{margin-top:24px}nav{position:fixed;top:24px;bottom:0;overflow-y:auto}nav .resource-group{padding:0}nav .resource-group .heading{position:relative}nav .resource-group .heading .chevron{position:absolute;top:12px;right:12px;opacity:.5}nav .resource-group .heading a{display:block;color:black;opacity:.7;border-left:2px solid transparent;margin:0}nav .resource-group .heading a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul{list-style-type:none;padding-left:0}nav ul a{display:block;font-size:13px;color:rgba(0,0,0,0.7);padding:8px 12px;border-top:1px solid #d9d9d9;border-left:2px solid transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}nav ul a:hover{text-decoration:none;background-color:bad-color;border-left:2px solid black}nav ul>li{margin:0}nav ul>li:first-child{margin-top:-12px}nav ul>li:last-child{margin-bottom:-12px}nav ul ul a{padding-left:24px}nav ul ul li{margin:0}nav ul ul li:first-child{margin-top:0}nav ul ul li:last-child{margin-bottom:0}nav>div>div>ul>li:first-child>a{border-top:none}.preload *{transition:none !important}.pull-left{float:left}.pull-right{float:right}.badge{display:inline-block;float:right;min-width:10px;min-height:14px;padding:3px 7px;font-size:12px;color:#000;background-color:#f2f2f2;border-radius:10px;margin:-2px 0}.badge.get{color:#70bbe1;background-color:#d9edf7}.badge.head{color:#70bbe1;background-color:#d9edf7}.badge.options{color:#70bbe1;background-color:#d9edf7}.badge.put{color:#f0db70;background-color:#fcf8e3}.badge.patch{color:#f0db70;background-color:#fcf8e3}.badge.post{color:#93cd7c;background-color:#dff0d8}.badge.delete{color:#ce8383;background-color:#f2dede}.collapse-button{float:right}.collapse-button .close{display:none;color:#428bca;cursor:pointer}.collapse-button .open{color:#428bca;cursor:pointer}.collapse-button.show .close{display:inline}.collapse-button.show .open{display:none}.collapse-content{max-height:0;overflow:hidden;transition:max-height .3s ease-in-out}nav{width:220px}.container{max-width:940px;margin-left:auto;margin-right:auto}.container .row .content{margin-left:244px;width:696px}.container .row:after{content:'';display:block;clear:both}.container-fluid nav{width:22%}.container-fluid .row .content{margin-left:24%}.container-fluid.triple nav{width:16.5%;padding-right:1px}.container-fluid.triple .row .content{position:relative;margin-left:16.5%;padding-left:24px}.middle:before,.middle:after{content:'';display:table}.middle:after{clear:both}.middle{box-sizing:border-box;width:51.5%;padding-right:12px}.right{box-sizing:border-box;float:right;width:48.5%;padding-left:12px}.right a{color:#428bca}.right h1,.right h2,.right h3,.right h4,.right h5,.right p,.right div{color:white}.right pre{background-color:#1d1f21;border:1px solid #1d1f21}.right pre code{color:#c5c8c6}.right .description{margin-top:12px}.triple .resource-heading{font-size:125%}.definition{margin-top:12px;margin-bottom:12px}.definition .method{font-weight:bold}.definition .method.get{color:#2e8ab8}.definition .method.head{color:#2e8ab8}.definition .method.options{color:#2e8ab8}.definition .method.post{color:#56b82e}.definition .method.put{color:#b8a22e}.definition .method.patch{color:#b8a22e}.definition .method.delete{color:#b82e2e}.definition .uri{word-break:break-all;word-wrap:break-word}.definition .hostname{opacity:.5}.example-names{background-color:#eee;padding:12px;border-radius:6px}.example-names .tab-button{cursor:pointer;color:black;border:1px solid #ddd;padding:6px;margin-left:12px}.example-names .tab-button.active{background-color:#d5d5d5}.right .example-names{background-color:#444}.right .example-names .tab-button{color:white;border:1px solid #666;border-radius:6px}.right .example-names .tab-button.active{background-color:#5e5e5e}#nav-background{position:fixed;left:0;top:0;bottom:0;width:16.5%;padding-right:14.4px;background-color:#fbfbfb;border-right:1px solid #f0f0f0;z-index:-1}#right-panel-background{position:absolute;right:-12px;top:-12px;bottom:-12px;width:48.6%;background-color:#333;z-index:-1}@media (max-width:1200px){nav{width:198px}.container{max-width:840px}.container .row .content{margin-left:224px;width:606px}}@media (max-width:992px){nav{width:169.4px}.container{max-width:720px}.container .row .content{margin-left:194px;width:526px}}@media (max-width:768px){nav{display:none}.container{width:95%;max-width:none}.container .row .content,.container-fluid .row .content,.container-fluid.triple .row .content{margin-left:auto;margin-right:auto;width:95%}#nav-background{display:none}#right-panel-background{width:48.6%}}.back-to-top{position:fixed;z-index:1;bottom:0;right:24px;padding:4px 8px;color:rgba(0,0,0,0.5);background-color:#f2f2f2;text-decoration:none !important;border-top:1px solid #d9d9d9;border-left:1px solid #d9d9d9;border-right:1px solid #d9d9d9;border-top-left-radius:3px;border-top-right-radius:3px}.resource-group{padding:12px;margin-bottom:12px;background-color:white;border:1px solid #d9d9d9;border-radius:6px}.resource-group h2.group-heading,.resource-group .heading a{padding:12px;margin:-12px -12px 12px -12px;background-color:#f2f2f2;border-bottom:1px solid #d9d9d9;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.triple .content .resource-group{padding:0;border:none}.triple .content .resource-group h2.group-heading,.triple .content .resource-group .heading a{margin:0 0 12px 0;border:1px solid #d9d9d9}nav .resource-group .heading a{padding:12px;margin-bottom:0}nav .resource-group .collapse-content{padding:0}.action{margin-bottom:12px;padding:12px 12px 0 12px;overflow:hidden;border:1px solid transparent;border-radius:6px}.action h4.action-heading{padding:12px;margin:-12px -12px 12px -12px;border-bottom:1px solid transparent;border-top-left-radius:6px;border-top-right-radius:6px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.action h4.action-heading .name{float:right;font-weight:normal}.action h4.action-heading .method{padding:6px 12px;margin-right:12px;border-radius:3px}.action h4.action-heading .method.get{color:#fff;background-color:#337ab7}.action h4.action-heading .method.head{color:#fff;background-color:#337ab7}.action h4.action-heading .method.options{color:#fff;background-color:#337ab7}.action h4.action-heading .method.put{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.patch{color:#fff;background-color:#ed9c28}.action h4.action-heading .method.post{color:#fff;background-color:#5cb85c}.action h4.action-heading .method.delete{color:#fff;background-color:#d9534f}.action h4.action-heading code{color:#444;background-color:#f5f5f5;border-color:#cfcfcf;font-weight:normal}.action dl.inner{padding-bottom:2px}.action .title{border-bottom:1px solid white;margin:0 -12px -1px -12px;padding:12px}.action.get{border-color:#bce8f1}.action.get h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.head{border-color:#bce8f1}.action.head h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.options{border-color:#bce8f1}.action.options h4.action-heading{color:#337ab7;background:#d9edf7;border-bottom-color:#bce8f1}.action.post{border-color:#d6e9c6}.action.post h4.action-heading{color:#5cb85c;background:#dff0d8;border-bottom-color:#d6e9c6}.action.put{border-color:#faebcc}.action.put h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.patch{border-color:#faebcc}.action.patch h4.action-heading{color:#ed9c28;background:#fcf8e3;border-bottom-color:#faebcc}.action.delete{border-color:#ebccd1}.action.delete h4.action-heading{color:#d9534f;background:#f2dede;border-bottom-color:#ebccd1}</style></head><body class="preload"><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><nav><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#视频上传-sup-legacy-sup-">视频上传 <sup>Legacy</sup></a></div><div class="collapse-content"><ul><li><a href="#视频上传-sup-legacy-sup-初始化上传-post"><span class="badge post"><i class="fa fa-plus"></i></span>初始化上传</a></li><li><a href="#视频上传-sup-legacy-sup-确认上传完成-post"><span class="badge post"><i class="fa fa-plus"></i></span>确认上传完成</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#点播视频">点播视频</a></div><div class="collapse-content"><ul><li><a href="#点播视频-视频播放-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>获取视频信息 <sup>客户端 API</sup></a></li><li><a href="#点播视频-视频管理-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>获取视频列表</a></li><li><a href="#点播视频-视频转码-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>获取转码进度</a></li><li><a href="#点播视频-视频标记-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>获取标记列表</a></li></ul></div></div><div class="resource-group"><div class="heading"><div class="chevron"><i class="open fa fa-angle-down"></i></div><a href="#统计上报">统计上报</a></div><div class="collapse-content"><ul><li><a href="#统计上报-上报播放时长-get"><span class="badge get"><i class="fa fa-arrow-down"></i></span>上报播放时长 <sup>客户端 API</sup></a></li></ul></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://api.guancloud.com/1.2">https://api.guancloud.com/1.2</a></p></nav><div class="content"><header><h1 id="top">观云视频云 API</h1></header><p>播放器及终端用户请使用 <code>uapi.guancloud.com</code> 这个域名代替 <code>api.guancloud.com</code>，</p>
+<p>两个域名的不同之处是 <code>uapi.guancloud.com</code> 提供了 API 缓存，而且不强制用户使用 HTTPS 访问。</p>
+<section id="视频上传-sup-legacy-sup-" class="resource-group"><h2 class="group-heading">视频上传 <sup>Legacy</sup> <a href="#视频上传-sup-legacy-sup-" class="permalink">&para;</a></h2><p>视频上传 API 即将弃用，如果需要使用，请将 API 版本号从 <code>1.2</code> 修改为 <code>1.0</code>。</p>
+<div id="视频上传-sup-legacy-sup-初始化上传" class="resource"><h3 class="resource-heading">初始化上传 <a href="#视频上传-sup-legacy-sup-初始化上传" class="permalink">&nbsp;&para;</a></h3><div id="视频上传-sup-legacy-sup-初始化上传-post" class="action post"><h4 class="action-heading"><div class="name">初始化上传</div><a href="#视频上传-sup-legacy-sup-初始化上传-post" class="method post">POST</a><code class="uri">/manage/video/upload</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/manage/video/upload</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">video/mp4</span><br><span class="hljs-attribute">Tan14-Key</span>: <span class="hljs-string">15ee88453715f3d2f0f4ac9862bc6589</span><br><span class="hljs-attribute">Content-Disposition</span>: <span class="hljs-string">form-data; name="the_file"; filename="OnlyMyRailgun.mp4"</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">upload_id</span>": <span class="hljs-value"><span class="hljs-string">"5230ec1f59d1485d9d7974b853802e31"</span></span>,
+  "<span class="hljs-attribute">offset</span>": <span class="hljs-value"><span class="hljs-number">10000</span></span>,
+  "<span class="hljs-attribute">expires</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-29T17:56:22.186Z"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">upload_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"上传任务 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">offset</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"已上传的字节数"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">expires</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"上传任务过期时间"</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"upload_id"</span>,
+    <span class="hljs-string">"offset"</span>
+  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="视频上传-sup-legacy-sup-确认上传完成" class="resource"><h3 class="resource-heading">确认上传完成 <a href="#视频上传-sup-legacy-sup-确认上传完成" class="permalink">&nbsp;&para;</a></h3><div id="视频上传-sup-legacy-sup-确认上传完成-post" class="action post"><h4 class="action-heading"><div class="name">确认上传完成</div><a href="#视频上传-sup-legacy-sup-确认上传完成-post" class="method post">POST</a><code class="uri">/manage/video/upload/complete</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/manage/video/upload/complete</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">upload_id</span>": <span class="hljs-value"><span class="hljs-string">"5230ec1f59d1485d9d7974b853802e31"</span></span>,
+  "<span class="hljs-attribute">md5</span>": <span class="hljs-value"><span class="hljs-string">"fc3ff98e8c6a0d3087d515c0473f8677.mp4"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">upload_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"上传任务 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">md5</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"文件的 MD5 值"</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"upload_id"</span>
+  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"efe6ae0b-c2c5-4ea1-a418-197a59427195"</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_2mb.mp4"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"视频 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"视频名称"</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"id"</span>,
+    <span class="hljs-string">"name"</span>
+  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="点播视频" class="resource-group"><h2 class="group-heading">点播视频 <a href="#点播视频" class="permalink">&para;</a></h2><div id="点播视频-视频播放" class="resource"><h3 class="resource-heading">视频播放 <a href="#点播视频-视频播放" class="permalink">&nbsp;&para;</a></h3><div id="点播视频-视频播放-get" class="action get"><h4 class="action-heading"><div class="name">获取视频信息 <sup>客户端 API</sup></div><a href="#点播视频-视频播放-get" class="method get">GET</a><code class="uri">/videos/{video_id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/videos/<span class="hljs-attribute" title="video_id">efe6ae0b-c2c5-4ea1-a418-197a59427195</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>video_id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>efe6ae0b-c2c5-4ea1-a418-197a59427195</span></span><p>视频 ID</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T06:23:05Z"</span></span>,
+  "<span class="hljs-attribute">media</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">quality</span>": <span class="hljs-value"><span class="hljs-string">"高清"</span></span>,
+      "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"MP4"</span></span>,
+      "<span class="hljs-attribute">bitrate</span>": <span class="hljs-value"><span class="hljs-number">734280</span></span>,
+      "<span class="hljs-attribute">size</span>": <span class="hljs-value"><span class="hljs-number">1347598</span></span>,
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-HT8UFv.mp4"</span>
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-CnnlJf.mp4"</span>
+      ]</span>,
+      "<span class="hljs-attribute">size</span>": <span class="hljs-value"><span class="hljs-number">1353336</span></span>,
+      "<span class="hljs-attribute">bitrate</span>": <span class="hljs-value"><span class="hljs-number">756747</span></span>,
+      "<span class="hljs-attribute">quality</span>": <span class="hljs-value"><span class="hljs-string">"超清"</span></span>,
+      "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"MP4"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">quality</span>": <span class="hljs-value"><span class="hljs-string">"流畅"</span></span>,
+      "<span class="hljs-attribute">format</span>": <span class="hljs-value"><span class="hljs-string">"MP4"</span></span>,
+      "<span class="hljs-attribute">bitrate</span>": <span class="hljs-value"><span class="hljs-number">214319</span></span>,
+      "<span class="hljs-attribute">size</span>": <span class="hljs-value"><span class="hljs-number">511471</span></span>,
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-OTigq5.mp4"</span>
+      ]
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">snapshot</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">0</span></span>,
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"http://gc-41fha3bf.vod2.tan14.net/tmpffiwiK.jpg"</span>,
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/tmpffiwiK.jpg"</span>
+      ]
+    </span>},
+    {
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"http://gc-41fha3bf.vod2.tan14.net/tmpjpLJP9.jpg"</span>,
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/tmpjpLJP9.jpg"</span>
+      ]</span>,
+      "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">5</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+        <span class="hljs-string">"http://gc-41fha3bf.vod2.tan14.net/tmptVQmNi.jpg"</span>,
+        <span class="hljs-string">"https://a692d2339421c91b.tan14.net/tmptVQmNi.jpg"</span>
+      ]</span>,
+      "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">10</span>
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">thumbnail</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">height</span>": <span class="hljs-value"><span class="hljs-number">54</span></span>,
+    "<span class="hljs-attribute">width</span>": <span class="hljs-value"><span class="hljs-number">96</span></span>,
+    "<span class="hljs-attribute">urls</span>": <span class="hljs-value">[
+      <span class="hljs-string">"http://gc-41fha3bf.vod2.tan14.net/kSGohoQCWZ8TnZ4fNM6nUS.jpg"</span>,
+      <span class="hljs-string">"https://a692d2339421c91b.tan14.net/kSGohoQCWZ8TnZ4fNM6nUS.jpg"</span>
+    ]</span>,
+    "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">3</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_2mb.mp4"</span></span>,
+  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"efe6ae0b-c2c5-4ea1-a418-197a59427195"</span></span>,
+  "<span class="hljs-attribute">meta</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">height</span>": <span class="hljs-value"><span class="hljs-number">720</span></span>,
+    "<span class="hljs-attribute">duration</span>": <span class="hljs-value"><span class="hljs-number">13.504</span></span>,
+    "<span class="hljs-attribute">width</span>": <span class="hljs-value"><span class="hljs-number">1280</span>
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="点播视频-视频管理" class="resource"><h3 class="resource-heading">视频管理 <a href="#点播视频-视频管理" class="permalink">&nbsp;&para;</a></h3><div id="点播视频-视频管理-get" class="action get"><h4 class="action-heading"><div class="name">获取视频列表</div><a href="#点播视频-视频管理-get" class="method get">GET</a><code class="uri">/videos{?limit,offset,ordering,search}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/videos?<span class="hljs-attribute">limit=</span><span class="hljs-literal">20</span>&<span class="hljs-attribute">offset=</span><span class="hljs-literal">0</span>&<span class="hljs-attribute">ordering=</span><span class="hljs-literal">-created</span>&<span class="hljs-attribute">search=</span><span class="hljs-literal"></span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>limit</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>20</span></span><p>每页返回的视频数量</p>
+</dd><dt>offset</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>0</span></span><p>偏移</p>
+</dd><dt>ordering</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>-created</span></span><p>排序依据</p>
+</dd><dt>search</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<p>搜索关键词</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">previous</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">results</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_2mb.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T06:23:05Z"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"efe6ae0b-c2c5-4ea1-a418-197a59427195"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"a63bcea3-1a0c-416d-83c7-de7a1a49fd1f"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Jonathan Lee李宗盛 [ 山丘 ] Official Music Video-rVEMTxg_LrU.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T04:09:57Z"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"dbdf4ac3-bed8-4f44-a9ba-de194432f8de"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"John Newman - Love Me Again-CfihYWRWRTQ.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T03:45:57Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T03:38:30Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_5mb.mp4"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"31fccb19-2fbe-4477-a7f8-99d5b9a83b99"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"6e083e94-6625-4b90-97ba-745119e56536"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_20mb.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-22T03:23:43Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SNH48 夏日主题泳装MV《马尾与发圈》2015版 _ ポニーテールとシュシュ2015-WfWU9KuifzM.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-18T10:32:06Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"8878a140-61c1-4332-b9ab-08038159df4b"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"e60420bb-a6b0-441a-bd51-0793a8d6378e"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"igx2.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-02-02T11:39:01Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"17da747d-9590-4d6d-ad2f-562c3f924732"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-29T07:16:20Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Avicii - Wake Me Up (Official Video)-IcrbM1l_BoI.mp4"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-26T09:43:20Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Adele - Set Fire To The Rain (Live at The Royal Albert Hall)-Ri7-vnrJD3k.mp4"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"da9bfa4b-428f-4868-ada3-87c8b433c798"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-26T09:10:13Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Taylor Swift - Begin Again.mp4"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"a763baea-11a7-42fd-b5db-70c2cc7f2436"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"19ca2a33-4c3e-4ed1-aada-c62f635c1885"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-25T15:04:27Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_1mb.mp4"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"4ef738d8-a559-45ed-a839-bf4df4ae313d"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"The.Simpsons.S27E04.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-20T09:33:16Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"09dbba2c-50df-437a-bc0f-ee88866f0e00"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"辛普森的一家.The.Simpsons.S27E10.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-20T09:07:27Z"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"ede02be1-4eb3-44d3-806c-e43834081a2a"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-15T02:31:00Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"5173074hd.mp4"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"10c3db22-7c8b-4401-aa63-b227365cf0a7"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-11T09:51:49Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"炸鸡.mp4"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"辛普森的一家.The.Simpsons.S27E10.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-07T08:19:22Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5446ab2e-96ca-49f8-aa88-d010bb32f5d9"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"4d9d321c-6f1b-4608-a2df-327e344a6520"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SNH48 夏日主题泳装MV《马尾与发圈》2015版 _ ポニーテールとシュシュ2015-WfWU9KuifzM.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-07T07:52:32Z"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_5mb.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-07T07:48:45Z"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"43e63a80-4060-4988-a45c-8a52593f361b"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"fbfabc3c-f8e3-40f2-a20d-ceeb3fd575bf"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_5mb.mp4"</span></span>,
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-07T07:46:20Z"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2016-01-07T07:26:28Z"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"SampleVideo_1080x720_1mb.mp4"</span></span>,
+      "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"5b7af8e0-c322-4c74-8cc0-4674a88acd58"</span></span>,
+      "<span class="hljs-attribute">categories</span>": <span class="hljs-value"><span class="hljs-string">"默认分类"</span>
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">next</span>": <span class="hljs-value"><span class="hljs-string">"https://app.guancloud.com/1.2/videos?limit=20&amp;offset=20"</span></span>,
+  "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">79</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="点播视频-视频转码" class="resource"><h3 class="resource-heading">视频转码 <a href="#点播视频-视频转码" class="permalink">&nbsp;&para;</a></h3><div id="点播视频-视频转码-get" class="action get"><h4 class="action-heading"><div class="name">获取转码进度</div><a href="#点播视频-视频转码-get" class="method get">GET</a><code class="uri">/videos/{video_id}/progress</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/videos/<span class="hljs-attribute" title="video_id">efe6ae0b-c2c5-4ea1-a418-197a59427195</span>/progress</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>video_id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>efe6ae0b-c2c5-4ea1-a418-197a59427195</span></span><p>视频 ID</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">task_id</span>": <span class="hljs-value"><span class="hljs-string">"9a69f991-d990-4297-86b4-c13956c054df-4289"</span></span>,
+  "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"done"</span></span>,
+  "<span class="hljs-attribute">progress</span>": <span class="hljs-value"><span class="hljs-number">100</span></span>,
+  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-number">1456114197</span></span>,
+  "<span class="hljs-attribute">submitted</span>": <span class="hljs-value"><span class="hljs-number">1456114199</span></span>,
+  "<span class="hljs-attribute">transcoded</span>": <span class="hljs-value"><span class="hljs-number">1456114554</span></span>,
+  "<span class="hljs-attribute">published</span>": <span class="hljs-value"><span class="hljs-number">1456114570</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">task_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"任务 ID （组成为：主任务 GUID + 转码任务 ID，如果转码任务还未创建则只返回主任务 ID）"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">status</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">enum</span>": <span class="hljs-value">[
+        <span class="hljs-string">"done"</span>
+      ]</span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"转码状态：\n\n+ pending       正在等待队列\n\n+ transferring  正在传输至转码服务\n\n+ waiting       正在等待转码服务\n\n+ transcoding   正在转码\n\n+ retriving     正在获取转码后视频\n\n+ publishing    正在发布视频\n\n+ done          完成\n"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">progress</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"进度"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">created</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"创建时间"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">submitted</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"任务开始时间"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">transcoded</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"转码完成时间"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">published</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"发布完成时间 / 任务完成时间"</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"task_id"</span>,
+    <span class="hljs-string">"status"</span>,
+    <span class="hljs-string">"progress"</span>,
+    <span class="hljs-string">"created"</span>,
+    <span class="hljs-string">"submitted"</span>,
+    <span class="hljs-string">"transcoded"</span>,
+    <span class="hljs-string">"published"</span>
+  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="点播视频-视频标记" class="resource"><h3 class="resource-heading">视频标记 <a href="#点播视频-视频标记" class="permalink">&nbsp;&para;</a></h3><div id="点播视频-视频标记-get" class="action get"><h4 class="action-heading"><div class="name">获取标记列表</div><a href="#点播视频-视频标记-get" class="method get">GET</a><code class="uri">/videos/markers</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/videos/markers</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"这里可能是个片头"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">40</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 40"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">70</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 70"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">110</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 110"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">150</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 150"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">190</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 190"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">230</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 230"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">260</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 260"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">300</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"time 300"</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value"><span class="hljs-number">380</span></span>,
+    "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"这里有个人不知道在讲什么 "</span></span>,
+    "<span class="hljs-attribute">is_prologue</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">is_epilogue</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>}
+]</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="统计上报" class="resource-group"><h2 class="group-heading">统计上报 <a href="#统计上报" class="permalink">&para;</a></h2><div id="统计上报-上报播放时长" class="resource"><h3 class="resource-heading">上报播放时长 <a href="#统计上报-上报播放时长" class="permalink">&nbsp;&para;</a></h3><div id="统计上报-上报播放时长-get" class="action get"><h4 class="action-heading"><div class="name">上报播放时长 <sup>客户端 API</sup></div><a href="#统计上报-上报播放时长-get" class="method get">GET</a><code class="uri">/videos/track-play{?buffered,played,played_real}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.guancloud.com/1.2</span>/videos/track-play?<span class="hljs-attribute">buffered=</span><span class="hljs-literal">0</span>&<span class="hljs-attribute">played=</span><span class="hljs-literal">0</span>&<span class="hljs-attribute">played_real=</span><span class="hljs-literal">0</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>buffered</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>0</span></span><p>已缓冲时长</p>
+</dd><dt>played</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>0</span></span><p>当前播放时长</p>
+</dd><dt>played_real</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>0</span></span><p>实际播放时长</p>
+</dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 22 Feb 2016</p><script>/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
+/*
+  Determine if a string ends with another string.
+*/
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+/*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Collapse or show a request/response example.
+*/
+function toggleCollapseButton(event) {
+    var button = event.target.parentNode;
+    var content = button.parentNode.nextSibling;
+    var inner = content.children[0];
+
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        // Currently showing, so let's hide it
+        button.className = 'collapse-button';
+        content.style.maxHeight = '0px';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'collapse-button show';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
+    }
+}
+
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
+function toggleCollapseNav(event, force) {
+    var heading = event.target.parentNode;
+    var content = heading.nextSibling;
+    var inner = content.children[0];
+
+    if (heading.className.indexOf('heading') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+      // Currently showing, so let's hide it, but only if this nav item
+      // is already selected. This prevents newly selected items from
+      // collapsing in an annoying fashion.
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
+        content.style.maxHeight = '0px';
+      }
+    } else {
+      // Currently hidden, so let's show it
+      content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
+
+    // Re-initialize the page
+    init();
+    autoCollapse();
+
+    document.querySelector('body').className = '';
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+/*
+  Initialize the interactive functionality of the page.
+*/
+function init() {
+    var i, j;
+
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapseButton;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
+        }
+    }
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('nav .resource-group .heading');
+    for (i = 0; i < navItems.length; i++) {
+        navItems[i].onclick = toggleCollapseNav;
+
+        // Show all by default
+        toggleCollapseNav({target: navItems[i].children[0]});
+    }
+}
+
+// Initial call to set up buttons
+init();
+
+window.onload = function () {
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+</script></body></html>

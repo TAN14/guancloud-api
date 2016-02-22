@@ -1,0 +1,421 @@
+HOST: https://api.guancloud.com/1.2
+
+# 观云视频云 API
+
+播放器及终端用户请使用 `uapi.guancloud.com` 这个域名代替 `api.guancloud.com`，
+
+两个域名的不同之处是 `uapi.guancloud.com` 提供了 API 缓存，而且不强制用户使用 HTTPS 访问。
+
+
+## Group 视频上传 <sup>Legacy</sup>
+
+视频上传 API 即将弃用，如果需要使用，请将 API 版本号从 `1.2` 修改为 `1.0`。
+
+### 初始化上传 [POST /manage/video/upload/]
+
+
++ Request (video/mp4)
+
+    + Headers
+
+            Tan14-Key: 15ee88453715f3d2f0f4ac9862bc6589
+            Content-Disposition: form-data; name="the_file"; filename="OnlyMyRailgun.mp4"
+
++ Response 200 (application/json)
+
+  + Attributes (VideoLegacyUploadInitResponse)
+
+
+### 确认上传完成 [POST /manage/video/upload/complete/]
+
+
++ Request (application/json)
+
+  + Attributes (VideoLegacyUploadCompleteRequest)
+
++ Response 200 (application/json)
+
+  + Attributes (VideoLegacyUploadCompleteResponse)
+
+## Data Structures
+
+### VideoLegacyUploadInitResponse
++ upload_id: `5230ec1f59d1485d9d7974b853802e31` (required, string) - 上传任务 ID
++ offset: `10000` (required, number) - 已上传的字节数
++ expires: `2016-02-29T17:56:22.186Z` (optional, string) - 上传任务过期时间
+
+### VideoLegacyUploadCompleteRequest
++ upload_id: `5230ec1f59d1485d9d7974b853802e31` (required, string) - 上传任务 ID
++ md5: `fc3ff98e8c6a0d3087d515c0473f8677.mp4` (optional, string) - 文件的 MD5 值
+
+### VideoLegacyUploadCompleteResponse
++ id: `efe6ae0b-c2c5-4ea1-a418-197a59427195` (required, string) - 视频 ID
++ name: `SampleVideo_1080x720_2mb.mp4` (required, string) - 视频名称
+
+
+## Group 点播视频
+
+## 视频播放 [/videos/{video_id}]
+
++ Parameters
+    + video_id (required, string, `efe6ae0b-c2c5-4ea1-a418-197a59427195`) ... 视频 ID
+
+### 获取视频信息 <sup>客户端 API</sup> [GET]
+
++ Response 200 (application/json)
+
+        {
+           "categories" : "默认分类",
+           "created" : "2016-02-22T06:23:05Z",
+           "media" : [
+              {
+                 "quality" : "高清",
+                 "format" : "MP4",
+                 "bitrate" : 734280,
+                 "size" : 1347598,
+                 "urls" : [
+                    "https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-HT8UFv.mp4"
+                 ]
+              },
+              {
+                 "urls" : [
+                    "https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-CnnlJf.mp4"
+                 ],
+                 "size" : 1353336,
+                 "bitrate" : 756747,
+                 "quality" : "超清",
+                 "format" : "MP4"
+              },
+              {
+                 "quality" : "流畅",
+                 "format" : "MP4",
+                 "bitrate" : 214319,
+                 "size" : 511471,
+                 "urls" : [
+                    "https://a692d2339421c91b.tan14.net/efe6ae0bc2c54ea1a418197a59427195-OTigq5.mp4"
+                 ]
+              }
+           ],
+           "snapshot" : [
+              {
+                 "time" : 0,
+                 "urls" : [
+                    "http://gc-41fha3bf.vod2.tan14.net/tmpffiwiK.jpg",
+                    "https://a692d2339421c91b.tan14.net/tmpffiwiK.jpg"
+                 ]
+              },
+              {
+                 "urls" : [
+                    "http://gc-41fha3bf.vod2.tan14.net/tmpjpLJP9.jpg",
+                    "https://a692d2339421c91b.tan14.net/tmpjpLJP9.jpg"
+                 ],
+                 "time" : 5
+              },
+              {
+                 "urls" : [
+                    "http://gc-41fha3bf.vod2.tan14.net/tmptVQmNi.jpg",
+                    "https://a692d2339421c91b.tan14.net/tmptVQmNi.jpg"
+                 ],
+                 "time" : 10
+              }
+           ],
+           "thumbnail" : {
+              "height" : 54,
+              "width" : 96,
+              "urls" : [
+                 "http://gc-41fha3bf.vod2.tan14.net/kSGohoQCWZ8TnZ4fNM6nUS.jpg",
+                 "https://a692d2339421c91b.tan14.net/kSGohoQCWZ8TnZ4fNM6nUS.jpg"
+              ],
+              "count" : 3
+           },
+           "name" : "SampleVideo_1080x720_2mb.mp4",
+           "id" : "efe6ae0b-c2c5-4ea1-a418-197a59427195",
+           "meta" : {
+              "height" : 720,
+              "duration" : 13.504,
+              "width" : 1280
+           }
+        }
+
+## 视频管理 [/videos{?limit,offset,ordering,search}]
+
++ Parameters
+  + limit (optional, number, `20`) ... 每页返回的视频数量
+  + offset (optional, number, `0`) ... 偏移
+  + ordering (optional, number, `-created`) ... 排序依据
+  + search (optional, number) ... 搜索关键词
+
+### 获取视频列表 [GET]
+
++ Response 200 (application/json)
+
+        {
+           "previous" : null,
+           "results" : [
+              {
+                 "published" : true,
+                 "name" : "SampleVideo_1080x720_2mb.mp4",
+                 "created" : "2016-02-22T06:23:05Z",
+                 "id" : "efe6ae0b-c2c5-4ea1-a418-197a59427195",
+                 "categories" : "默认分类"
+              },
+              {
+                 "id" : "a63bcea3-1a0c-416d-83c7-de7a1a49fd1f",
+                 "categories" : "默认分类",
+                 "published" : true,
+                 "name" : "Jonathan Lee李宗盛 [ 山丘 ] Official Music Video-rVEMTxg_LrU.mp4",
+                 "created" : "2016-02-22T04:09:57Z"
+              },
+              {
+                 "categories" : "默认分类",
+                 "id" : "dbdf4ac3-bed8-4f44-a9ba-de194432f8de",
+                 "name" : "John Newman - Love Me Again-CfihYWRWRTQ.mp4",
+                 "created" : "2016-02-22T03:45:57Z",
+                 "published" : true
+              },
+              {
+                 "published" : true,
+                 "created" : "2016-02-22T03:38:30Z",
+                 "name" : "SampleVideo_1080x720_5mb.mp4",
+                 "id" : "31fccb19-2fbe-4477-a7f8-99d5b9a83b99",
+                 "categories" : "默认分类"
+              },
+              {
+                 "categories" : "默认分类",
+                 "id" : "6e083e94-6625-4b90-97ba-745119e56536",
+                 "name" : "SampleVideo_1080x720_20mb.mp4",
+                 "created" : "2016-02-22T03:23:43Z",
+                 "published" : false
+              },
+              {
+                 "name" : "SNH48 夏日主题泳装MV《马尾与发圈》2015版 _ ポニーテールとシュシュ2015-WfWU9KuifzM.mp4",
+                 "created" : "2016-02-18T10:32:06Z",
+                 "published" : false,
+                 "categories" : "默认分类",
+                 "id" : "8878a140-61c1-4332-b9ab-08038159df4b"
+              },
+              {
+                 "id" : "e60420bb-a6b0-441a-bd51-0793a8d6378e",
+                 "categories" : "默认分类",
+                 "name" : "igx2.mp4",
+                 "created" : "2016-02-02T11:39:01Z",
+                 "published" : true
+              },
+              {
+                 "id" : "17da747d-9590-4d6d-ad2f-562c3f924732",
+                 "categories" : "默认分类",
+                 "published" : true,
+                 "created" : "2016-01-29T07:16:20Z",
+                 "name" : "Avicii - Wake Me Up (Official Video)-IcrbM1l_BoI.mp4"
+              },
+              {
+                 "published" : true,
+                 "created" : "2016-01-26T09:43:20Z",
+                 "name" : "Adele - Set Fire To The Rain (Live at The Royal Albert Hall)-Ri7-vnrJD3k.mp4",
+                 "id" : "da9bfa4b-428f-4868-ada3-87c8b433c798",
+                 "categories" : "默认分类"
+              },
+              {
+                 "published" : true,
+                 "created" : "2016-01-26T09:10:13Z",
+                 "name" : "Taylor Swift - Begin Again.mp4",
+                 "id" : "a763baea-11a7-42fd-b5db-70c2cc7f2436",
+                 "categories" : "默认分类"
+              },
+              {
+                 "id" : "19ca2a33-4c3e-4ed1-aada-c62f635c1885",
+                 "categories" : "默认分类",
+                 "created" : "2016-01-25T15:04:27Z",
+                 "name" : "SampleVideo_1080x720_1mb.mp4",
+                 "published" : true
+              },
+              {
+                 "id" : "4ef738d8-a559-45ed-a839-bf4df4ae313d",
+                 "categories" : "默认分类",
+                 "name" : "The.Simpsons.S27E04.mp4",
+                 "created" : "2016-01-20T09:33:16Z",
+                 "published" : true
+              },
+              {
+                 "id" : "09dbba2c-50df-437a-bc0f-ee88866f0e00",
+                 "categories" : "默认分类",
+                 "published" : true,
+                 "name" : "辛普森的一家.The.Simpsons.S27E10.mp4",
+                 "created" : "2016-01-20T09:07:27Z"
+              },
+              {
+                 "id" : "ede02be1-4eb3-44d3-806c-e43834081a2a",
+                 "categories" : "默认分类",
+                 "created" : "2016-01-15T02:31:00Z",
+                 "name" : "5173074hd.mp4",
+                 "published" : true
+              },
+              {
+                 "categories" : "默认分类",
+                 "id" : "10c3db22-7c8b-4401-aa63-b227365cf0a7",
+                 "created" : "2016-01-11T09:51:49Z",
+                 "name" : "炸鸡.mp4",
+                 "published" : true
+              },
+              {
+                 "name" : "辛普森的一家.The.Simpsons.S27E10.mp4",
+                 "created" : "2016-01-07T08:19:22Z",
+                 "published" : true,
+                 "categories" : "默认分类",
+                 "id" : "5446ab2e-96ca-49f8-aa88-d010bb32f5d9"
+              },
+              {
+                 "categories" : "默认分类",
+                 "id" : "4d9d321c-6f1b-4608-a2df-327e344a6520",
+                 "published" : true,
+                 "name" : "SNH48 夏日主题泳装MV《马尾与发圈》2015版 _ ポニーテールとシュシュ2015-WfWU9KuifzM.mp4",
+                 "created" : "2016-01-07T07:52:32Z"
+              },
+              {
+                 "published" : true,
+                 "name" : "SampleVideo_1080x720_5mb.mp4",
+                 "created" : "2016-01-07T07:48:45Z",
+                 "id" : "43e63a80-4060-4988-a45c-8a52593f361b",
+                 "categories" : "默认分类"
+              },
+              {
+                 "categories" : "默认分类",
+                 "id" : "fbfabc3c-f8e3-40f2-a20d-ceeb3fd575bf",
+                 "name" : "SampleVideo_1080x720_5mb.mp4",
+                 "created" : "2016-01-07T07:46:20Z",
+                 "published" : true
+              },
+              {
+                 "created" : "2016-01-07T07:26:28Z",
+                 "name" : "SampleVideo_1080x720_1mb.mp4",
+                 "published" : true,
+                 "id" : "5b7af8e0-c322-4c74-8cc0-4674a88acd58",
+                 "categories" : "默认分类"
+              }
+           ],
+           "next" : "https://app.guancloud.com/1.2/videos?limit=20&offset=20",
+           "count" : 79
+        }
+
+
+## 视频转码 [/videos/{video_id}/progress]
+
++ Parameters
+    + video_id (required, string, `efe6ae0b-c2c5-4ea1-a418-197a59427195`) ... 视频 ID
+
+### 获取转码进度 [GET]
+
++ Response 200 (application/json)
+
+  + Attributes (VideoTranscodingTask)
+
+## 视频标记 [/videos/{video_id}/markers]
+
+### 获取标记列表 [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "time": 10,
+            "text": "这里可能是个片头",
+            "is_prologue": false,
+            "is_epilogue": true
+          },
+          {
+            "time": 40,
+            "text": "time 40",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 70,
+            "text": "time 70",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 110,
+            "text": "time 110",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 150,
+            "text": "time 150",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 190,
+            "text": "time 190",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 230,
+            "text": "time 230",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 260,
+            "text": "time 260",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 300,
+            "text": "time 300",
+            "is_prologue": false,
+            "is_epilogue": false
+          },
+          {
+            "time": 380,
+            "text": "这里有个人不知道在讲什么 ",
+            "is_prologue": false,
+            "is_epilogue": false
+          }
+        ]
+
+
+## Data Structures
+
+### VideoTranscodingTask
++ task_id: `9a69f991-d990-4297-86b4-c13956c054df-4289` (required, string) - 任务 ID （组成为：主任务 GUID + 转码任务 ID，如果转码任务还未创建则只返回主任务 ID）
++ status: done (required, enum)
+
+  转码状态：
+
+  + pending       正在等待队列
+  + transferring  正在传输至转码服务
+  + waiting       正在等待转码服务
+  + transcoding   正在转码
+  + retriving     正在获取转码后视频
+  + publishing    正在发布视频
+  + done          完成
+
++ progress: 100 (required, number) - 进度
++ created: 1456114197 (required, number) - 创建时间
++ submitted: 1456114199 (required, number) - 任务开始时间
++ transcoded: 1456114554 (required, number) - 转码完成时间
++ published: 1456114570 (required, number) - 发布完成时间 / 任务完成时间
+
+### VideoMarker
++ time (required, number) - 时间（单位：秒）
++ text (required, string) - 显示文字
++ is_prologue: false (optional, boolean) - 是否为片头
++ is_epilogue: false (optional, boolean) - 是否为片尾
+
+## Group 统计上报
+
+## 上报播放时长 [/videos/{video_id}/track-play{?buffered,played,played_real}]
+
++ Parameters
+  + buffered (required, number, `0`) ... 已缓冲时长
+  + played (required, number, `0`) ... 当前播放时长
+  + played_real (required, number, `0`) ... 实际播放时长
+
+### 上报播放时长 <sup>客户端 API</sup> [GET]
+
++ Response 204
